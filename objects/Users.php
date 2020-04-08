@@ -128,24 +128,25 @@ include("../../config/database_handler.php");
 
         $return_object= new stdClass();
 
-        $query_string= "SELECT id, username, email FROM users WHERE username=:username_IN AND password=:password_IN";
+        $query_string= "SELECT id, username, email, role FROM users WHERE username=:username_IN AND password=:password_IN";
         $statementHandler = $this->database_handler->prepare($query_string);
-
+        
         if($statementHandler !== false){
 
             $password = md5($password_parameter);
 
             $statementHandler->bindParam(':username_IN', $username_parameter);
             $statementHandler->bindParam(':password_IN', $password);
-
+          
             $statementHandler->execute();
             $return =  $statementHandler->fetch();
 
             if(!empty($return)){
                 $this->username = $return['username'];
-
+     
                 $return_object->token=$this->getToken($return['id'], $return['username']);
                 return json_encode($return_object);
+                
 
             }else{
                 echo "fel login";
@@ -185,7 +186,7 @@ include("../../config/database_handler.php");
                 if(($diff / 60) > $this->token_validity_time){
 
                     $query_string= "DELETE FROM tokens WHERE user_id=:userID";
-                    $statementHandler = $this->database_handler-prepare($query_string);
+                    $statementHandler = $this->database_handler->prepare($query_string);
 
                     $statementHandler->bindParam('userID', $userID_IN);
                     $statementHandler->execute();
@@ -266,6 +267,68 @@ include("../../config/database_handler.php");
         }
         return true;
     }
+
+    private function getUserId($token)
+    {
+        $query_string = "SELECT user_id FROM tokens WHERE token=:token";
+        $statementHandler = $this->database_handler->prepare($query_string);
+
+        if ($statementHandler !== false) {
+
+            $statementHandler->bindParam(":token", $token);
+            $statementHandler->execute();
+
+            $return = $statementHandler->fetch()[0];
+
+            if (!empty($return)) {
+                return $return;
+            } else {
+                return -1;
+            }
+        } else {
+            echo "Couldn't create a statementhandler!";
+        }
+    }
+
+    private function getUserData($userID) {
+
+        $query_string = "SELECT id, username, email, role FROM users WHERE id=:userID";
+        $statementHandler = $this->database_handler->prepare($query_string);
+
+        if($statementHandler !== false) {
+
+            $statementHandler->bindParam(":userID", $userID);
+            $statementHandler->execute( );
+
+            $return = $statementHandler->fetch();
+
+            if(!empty($return)) {
+                return $return;
+            } else {
+                return false;
+            }
+
+        } else {
+            echo "Couldn't create statement handler!";
+        }
+
+    }
+
+
+    public function isAdmin($token)
+    {
+        $user_id = $this->getUserId($token);
+        $user_data = $this->getUserData($user_id);
+
+        if($user_data['role'] == 'Admin') {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+ 
 
 
 

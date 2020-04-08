@@ -26,7 +26,7 @@ Password:<br>
 
 <p>Dont have an account?</p>
 <b>
-<a  href="signupForm.php">Sign up</a>
+<a  href="signup.php">Sign up</a>
 </b>
 
 
