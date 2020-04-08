@@ -10,18 +10,18 @@
 </body>
 </html>
 <?php
-
+// includes
 include("../../objects/posts.php");
 include("../../objects/users.php");
 include("../../objects/carts.php");
 
-
+// calling function add to cart 
 
 $cart_handler = new Carts($databaseHandler);
 
-echo $cart_handler->addToCart( $_POST['token'], $_POST['id']);
 
 
+// checking if we got token and ID
 if(!empty($_POST['token'])) {
 
 
@@ -31,11 +31,7 @@ if(!empty($_POST['token'])) {
     if(!empty($_POST['id'])) { 
 
        
-echo $_POST['id'];
-echo "<br>";
-
-        
-
+echo $cart_handler->addToCart( $_POST['token'], $_POST['id']);
 
     } else {
         
@@ -52,8 +48,7 @@ echo "<br>";
 
     
 }
-// create cart, add to cart function
-//
+
 
 
 

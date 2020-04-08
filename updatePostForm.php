@@ -8,6 +8,7 @@
 <body>
 <center>
 <?php
+// update product form 
 $postID = ( !empty($_GET['id'] ) ? $_GET['id'] : -1 );
 
 $token=(!empty($_GET['token']) ? $_GET['token'] : "");

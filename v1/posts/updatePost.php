@@ -1,11 +1,12 @@
 
 <?php
+//includes
 include("../../objects/posts.php");
 include("../../objects/users.php");
 
 $post_handler = new Posts($databaseHandler);
 $user_handler = new User($databaseHandler);
-
+// watching if we have post ID and token and if token is okej to use and later calling on update function
 $postID = ( !empty($_GET['id'] ) ? $_GET['id'] : -1 );
 
 $token=(!empty($_GET['token']) ? $_GET['token'] : "");

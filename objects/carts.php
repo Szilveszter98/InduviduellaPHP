@@ -1,8 +1,8 @@
 <?php
-
+//connect to database
 include("../../config/database_handler.php");
 
-
+//class
 class Carts {
     private $database_handler;
     private $cart_id;
@@ -18,7 +18,7 @@ class Carts {
         $this->cart_id = $cart_id_IN;
 
     }   
-
+//fetching out every product what the user have in the cart
      public function fetchUsersCart($token){
 
      $query_string= "SELECT * FROM carts Join posts on posts.id = carts.post_ID where token =:token";
@@ -38,7 +38,7 @@ class Carts {
         }
         
     } 
-
+// add product to cart
     public function addToCart($token_param, $post_ID_param) {
 
         $query_string = "INSERT INTO carts (token, post_ID) VALUES(:token, :post_ID)";
@@ -62,7 +62,7 @@ class Carts {
             die();
         }
     }
-
+//delet product from cart
     public function deleteCart($cartID) {
 
         $query_string = "Delete FROM carts WHERE cartID=:cartID";
@@ -76,7 +76,7 @@ class Carts {
 
             if($success === true) {
                 echo "$cartID has been deleted!";
-                echo "<a href='../../index.php>Back to the index</a>";
+                echo "<a href='../../index.php'>Back to the index</a>";
             } else {
                 echo "Error while trying to insert post to database!";
             }
@@ -86,6 +86,7 @@ class Carts {
             die();
         }
     }
+    //check out 
     public function CheckOut($token) {
 
         $query_string = "INSERT INTO checkouts SELECT * FROM carts WHERE token=:token";
@@ -98,8 +99,9 @@ class Carts {
             $success = $statementHandler->execute();
 
             if($success === true) {
-                echo " has been checked out!";
-                echo "<a href='../../index.php>Back to the index</a>";
+                echo " Thank you for your order!";
+                echo "<br>";
+                echo "<a href='../../index.php'>Back to the start</a>";
             } else {
                 echo "Error while trying to insert post to database!";
             }

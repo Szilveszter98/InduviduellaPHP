@@ -19,7 +19,7 @@ $token =(isset($_GET['token']) ? $_GET['token'] : '');
 
 
 
-
+//watching if token and id is okej and calling on function DeleteCart
 
 if(!empty($_GET['token'])) {
 

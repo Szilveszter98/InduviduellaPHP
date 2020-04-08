@@ -1,7 +1,7 @@
 <?php
-
+// database connection
 include("../../config/database_handler.php");
-
+// class
 class Posts {
     private $database_handler;
     private $post_id;
@@ -17,6 +17,7 @@ class Posts {
         $this->post_id = $post_id_IN;
 
     }
+    //fetch 1 product
     public function fetchSinglePost() {
 
         $query_string = "SELECT id, title, content, price, date_posted FROM posts WHERE id=:post_id";
@@ -38,7 +39,7 @@ class Posts {
     }
 
     
-
+// fetch all products
     public function fetchAllPosts() {
 
         $query_string = "SELECT id, title, content, price, date_posted FROM posts";
@@ -55,7 +56,7 @@ class Posts {
         }
         
     }
-
+// add product to database
     public function addPost($title_param, $content_param, $price_param) {
 
         $query_string = "INSERT INTO posts (title, content, price) VALUES(:title_IN, :content_IN, :price_IN )";
@@ -82,7 +83,7 @@ class Posts {
     }
 
 
-
+// update product 
     public function updatePost($data) {
 
 
@@ -133,7 +134,7 @@ class Posts {
 
 
     }
-
+// delete product
     public function deletePost($postID) {
 
         $query_string = "Delete FROM posts WHERE id=:postID";

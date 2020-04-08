@@ -1,12 +1,12 @@
 <?php
 
 
-
+// includes
 include("../../objects/users.php");
 
     $user_handler = new User($databaseHandler);
 
-    
+// login
    echo "<center>";
    echo "<h1> Welcome " . $_POST['username'] . "!</h1><br>";
    
@@ -16,7 +16,7 @@ include("../../objects/users.php");
     echo "<a href= '../posts/getAllPosts.php?id={$token}'>To the products</a>";
     echo "<br>";
 
-
+// watching if user is admin
     
     $isAdmin = $user_handler->isAdmin($token);
     

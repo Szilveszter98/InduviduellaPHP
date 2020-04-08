@@ -7,6 +7,7 @@
 </head>
 <body>
 <center>
+<!-- Form to create new products -->
 <h1> Creating a new product </h1>
 <form method="GET" action="v1/posts/addPost.php">
             

@@ -15,6 +15,7 @@
 </body>
 </html>
 <?php
+//includes
 include("../../objects/posts.php");
 include("../../objects/users.php");
 include("../../objects/carts.php");
@@ -31,7 +32,7 @@ if($user_handler->validateToken($token) === false){
     echo "invalid token!";
     die;
 } 
-
+// fetching all products
 
 foreach($cart_handler->fetchUsersCart($token) as $cart){
 

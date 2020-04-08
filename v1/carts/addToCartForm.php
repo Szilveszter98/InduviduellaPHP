@@ -8,6 +8,7 @@
 <body>
 <?php
 
+//form to add cart
 
 $postID=(isset($_GET['id']) ? $_GET['id'] : "");
 

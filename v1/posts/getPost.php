@@ -1,12 +1,12 @@
 <?php
+//includes
 
 include("../../objects/posts.php");
 include("../../objects/users.php");
 
 $posts_object = new Posts($databaseHandler);
 $user_handler = new User($databaseHandler);
-
-
+//watching if we have post ID and token and watching if token is okej to use
 
 $postID = ( !empty($_GET['id'] ) ? $_GET['id'] : -1 );
 
@@ -16,7 +16,7 @@ if($user_handler->validateToken($token) === false){
     echo "invalid token!";
     die;
 }  
-
+// fetching one post 
 $posts_object->setPostId($postID);
 $post=$posts_object->fetchSinglePost();
 
@@ -37,7 +37,7 @@ $post=$posts_object->fetchSinglePost();
     echo "</center>";
     echo "<br/>";
 
-
+// watching if user is admin
     $isAdmin = $user_handler->isAdmin($token);
     
     if($isAdmin === true) {

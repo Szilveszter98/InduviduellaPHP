@@ -13,13 +13,14 @@
 </body>
 </html>
 <?php
+//includes
 include("../../objects/posts.php");
 include("../../objects/users.php");
 
 $posts_object = new Posts($databaseHandler);
 $user_handler = new User($databaseHandler);
 
-
+// watching if we have token and if its okej to use
 $token =  ( !empty($_GET['id'] ) ? $_GET['id'] : "" );
 
 if($user_handler->validateToken($token) === false){
@@ -27,7 +28,7 @@ if($user_handler->validateToken($token) === false){
     echo "invalid token!";
     die;
 }  
-
+// fetching all the products
 foreach($posts_object->fetchAllPosts() as $post){
 
      echo "<center>";

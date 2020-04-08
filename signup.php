@@ -15,13 +15,6 @@
 Username:<br />
 <input type="text" name="username" required>
 <br />
-First name:<br /> 
-<input type="text" name="f.name" required>
-<br />
-Last name: <br />
-<input type="text" name="l.name" required>
-<br />
-
 Password: <br />
 <input type="password" name="password"required>
 <br />

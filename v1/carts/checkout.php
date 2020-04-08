@@ -7,7 +7,7 @@
 </head>
 <body>
     <?php
-
+// includes
 include("../../objects/posts.php");
 include("../../objects/carts.php");
 include("../../objects/users.php");
@@ -19,7 +19,7 @@ $token =(isset($_GET['token']) ? $_GET['token'] : '');
 
 
 
-
+// checking token and calling on functuin CheckOut
 
 if(!empty($_GET['token'])) {
 
@@ -43,7 +43,7 @@ if(!empty($_GET['token'])) {
     echo json_encode($return_object);
 }
 
-  // header("location:../../index.php");
+  
    
 
 ?>

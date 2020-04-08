@@ -6,6 +6,7 @@
     <title>Product added</title>
 </head>
 <body>
+<!-- product is added page -->
 <center>
 <h1>The product added to your cart</h1>
 <h2> To countinue shoping you need to log in again<h2>

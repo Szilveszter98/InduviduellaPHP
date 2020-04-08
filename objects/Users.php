@@ -1,6 +1,7 @@
 <?php
+// database connection
 include("../../config/database_handler.php");
-
+//class user
     class User{
 
         private $database_handler;
@@ -12,7 +13,7 @@ include("../../config/database_handler.php");
             $this->database_handler= $database_handler_parameter_IN;
 
         }
-
+// user register
         public function addUser($username_IN, $password_IN, $email_IN) {
 
             $return_object =new stdClass();
@@ -46,7 +47,7 @@ include("../../config/database_handler.php");
 
             return json_encode($return_object);
         }
-
+// insert user data to database
     private function insertUserToDatabase($username_param, $password_param, $email_param){
 
         $query_string = "INSERT INTO users (username, password, email) VALUES (:username, :password, :email)";
@@ -75,7 +76,7 @@ include("../../config/database_handler.php");
             return false;
         }
     }
-
+// watching if  username is taken
     private function isUsernameTaken($username_param){
 
         $query_string = "SELECT COUNT(id) FROM users WHERE username=:username";
@@ -99,7 +100,7 @@ include("../../config/database_handler.php");
 
     }
 
-
+// watching if email is taken
     private function isEmailTaken($email_param){
 
         $query_string = "SELECT COUNT(id) FROM users WHERE email=:email";
@@ -123,7 +124,7 @@ include("../../config/database_handler.php");
         }
 
     }
-
+// login user
     public function loginUser($username_parameter, $password_parameter) {
 
         $return_object= new stdClass();
@@ -157,14 +158,14 @@ include("../../config/database_handler.php");
         }
 
     }
-
+// get token 
     private function getToken($userID, $username){
 
         $token = $this->checkToken($userID);
         return $token;
 
     }
-
+// check token 
     private function checkToken($userID_IN){
 
         $query_string = "SELECT token, date_updated FROM tokens WHERE user_id=:userID";
@@ -204,7 +205,7 @@ include("../../config/database_handler.php");
         }
 
     }
-
+// create token 
     private function createToken($user_id_parameter){
 
         $uniqToken = md5($this->username.uniqid('', true).time());
@@ -220,14 +221,14 @@ include("../../config/database_handler.php");
             $statementHandler->bindParam(':current_time', $currentTime, PDO::PARAM_INT);
 
             $statementHandler->execute();
-            //statementhandler->debugDumpPARAMs();
+          
 
             return $uniqToken;
         }else{
             return "could not create a statementhandler";
         }
     }
-
+// validate token 
     public function validateToken($token){
 
         $query_string= "SELECT user_id, date_updated FROM tokens WHERE token=:token";
@@ -267,7 +268,7 @@ include("../../config/database_handler.php");
         }
         return true;
     }
-
+// get user ID
     private function getUserId($token)
     {
         $query_string = "SELECT user_id FROM tokens WHERE token=:token";
@@ -289,7 +290,7 @@ include("../../config/database_handler.php");
             echo "Couldn't create a statementhandler!";
         }
     }
-
+// get user DATA
     private function getUserData($userID) {
 
         $query_string = "SELECT id, username, email, role FROM users WHERE id=:userID";
@@ -314,7 +315,7 @@ include("../../config/database_handler.php");
 
     }
 
-
+// watching if user is an Admin
     public function isAdmin($token)
     {
         $user_id = $this->getUserId($token);
